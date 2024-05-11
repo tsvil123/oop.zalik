@@ -62,6 +62,8 @@ class App:
     def GButton_1_command(self):
         self.b1['text'] = '1'
         self.l.append(self.b1)
+        if len(self.l) == 2:
+            self.perevirka()
         print('command')
 
     def GButton_2_command(self):
