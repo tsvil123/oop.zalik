@@ -1,0 +1,114 @@
+from tkinter import *
+import tkinter.font as tkFont
+
+class App:
+
+    def __init__(self, root):
+        self.l = []
+        #setting title
+        root.title("undefined")
+        #setting window size
+        width=600
+        height=500
+        screenwidth = root.winfo_screenwidth()
+        screenheight = root.winfo_screenheight()
+        alignstr = '%dx%d+%d+%d' % (width, height, (screenwidth - width) / 2, (screenheight - height) / 2)
+        root.geometry(alignstr)
+        root.resizable(width=False, height=False)
+
+        b1=Button(root,
+                     bg = '#f0f0f0', font = 'Arial 18',
+                     fg = '#000000', text = "", command = self.GButton_1_command)
+        b1.place(x=10,y=10,width=60,height=60)
+
+        b2=Button(root,
+                     bg = '#f0f0f0', font = 'Arial 18',
+                     fg = '#000000', text = "", command = self.GButton_2_command)
+        b2.place(x=90,y=10,width=60,height=60)
+
+
+        b3=Button(root,
+                     bg = '#f0f0f0', font = 'Arial 18',
+                     fg = '#000000', text = "", command = self.GButton_3_command)
+        b3.place(x=170,y=10,width=60,height=60)
+
+
+        b4=Button(root,
+                     bg = '#f0f0f0', font = 'Arial 18',
+                     fg = '#000000', text = "", command = self.GButton_4_command)
+        b4.place(x=250,y=10,width=60,height=60)
+
+
+        b5=Button(root,
+                     bg = '#f0f0f0', font = 'Arial 18',
+                     fg = '#000000', text = "", command = self.GButton_5_command)
+        b5.place(x=330,y=10,width=60,height=60)
+
+
+        b6=Button(root,
+                     bg = '#f0f0f0', font = 'Arial 18',
+                     fg = '#000000', text = '', command = self.GButton_6_command)
+        b6.place(x=410,y=10,width=60,height=60)
+        self.b1 = b1
+        self.b2 = b2
+        self.b3 = b3
+        self.b4 = b4
+        self.b5 = b5
+        self.b6 = b6
+
+
+
+
+    def GButton_1_command(self):
+        self.b1['text'] = '1'
+        self.l.append(self.b1)
+        print('command')
+
+    def GButton_2_command(self):
+        self.b2['text'] = '1'
+        self.l.append(self.b2)
+        if len(self.l) == 2:
+            self.perevirka()
+        print('command')
+
+    def GButton_3_command(self):
+        self.b3['text'] = '2'
+        self.l.append(self.b3)
+        if len(self.l) == 2:
+            self.perevirka()
+        print('command')
+
+    def GButton_4_command(self):
+        self.b4['text'] = '2'
+        self.l.append(self.b4)
+        if len(self.l) == 2:
+            self.perevirka()
+        print('command')
+
+    def GButton_5_command(self):
+        self.b5['text'] = '3'
+        self.l.append(self.b5)
+        if len(self.l) == 2:
+            self.perevirka()
+        print('command')
+
+    def GButton_6_command(self):
+        self.b6['text'] = '3'
+        self.l.append(self.b6)
+        if len(self.l) == 2:
+            self.perevirka()
+        print('command')
+
+
+    def perevirka(self):
+        if self.l[0]['text'] == self.l[1]['text'] and self.l[0] != self.l[1]:
+            self.l[0].destroy()
+            self.l[1].destroy()
+        else:
+            self.l[0]['text'] = ''
+            self.l[1]['text'] = ''
+        self.l.clear()
+if __name__ == "__main__":
+    root = Tk()
+    app = App(root)
+    root.mainloop()
