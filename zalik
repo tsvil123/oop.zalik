@@ -1,116 +1,45 @@
 from tkinter import *
-import tkinter.font as tkFont
+import random
+RandomLst = list(range(1, 19)) + list(range(1, 19))
+random.shuffle(RandomLst)
+root = Tk()
+root.geometry('800x750')
+frame = Frame(root, bg = "gray")
+frame.place(relwidth=1, relheight=1)
+Znak = PhotoImage(file = "ZnakPyt.png")
+Znak = Znak.subsample(6, 6)
 
-class App:
+ImmagineList = []
+def Process(a):
+    global ImmagineList
+    if len(ImmagineList)<2:
+        Buttons[a].configure(image='')
+    ImmagineList.append(Buttons[a])
+    if len(ImmagineList) == 2:
+        def f1():
+            if ImmagineList[0]["text"] == ImmagineList[1]["text"]:
+                ImmagineList[0]['state'] = 'disabled'
+                ImmagineList[1]['state'] = 'disabled'
+            else:
+                ImmagineList[0].configure(image=Znak)
+                ImmagineList[1].configure(image=Znak)
 
-    def __init__(self, root):
-        self.l = []
-        #setting title
-        root.title("undefined")
-        #setting window size
-        width=600
-        height=500
-        screenwidth = root.winfo_screenwidth()
-        screenheight = root.winfo_screenheight()
-        alignstr = '%dx%d+%d+%d' % (width, height, (screenwidth - width) / 2, (screenheight - height) / 2)
-        root.geometry(alignstr)
-        root.resizable(width=False, height=False)
-
-        b1=Button(root,
-                     bg = '#f0f0f0', font = 'Arial 18',
-                     fg = '#000000', text = "", command = self.GButton_1_command)
-        b1.place(x=10,y=10,width=60,height=60)
-
-        b2=Button(root,
-                     bg = '#f0f0f0', font = 'Arial 18',
-                     fg = '#000000', text = "", command = self.GButton_2_command)
-        b2.place(x=90,y=10,width=60,height=60)
-
-
-        b3=Button(root,
-                     bg = '#f0f0f0', font = 'Arial 18',
-                     fg = '#000000', text = "", command = self.GButton_3_command)
-        b3.place(x=170,y=10,width=60,height=60)
+            ImmagineList.clear()
+        root.after(1000,f1)
 
 
-        b4=Button(root,
-                     bg = '#f0f0f0', font = 'Arial 18',
-                     fg = '#000000', text = "", command = self.GButton_4_command)
-        b4.place(x=250,y=10,width=60,height=60)
+# label = {}
+# Labels = []
+# for j in range(36):
+#     label[str(j)] = Label(frame,bg="purple", text=str(j%18), font=40, name=str(j), width=9, height=4)
+#     label[str(j)].place(x = 10 + (130 * j)%780, y=10 + 120 * (j // 6))
+#     Labels.append(label[str(j)])
 
+button = {}
+Buttons = []
+for i in range(36):
+    button[i] = Button(frame, image = Znak, bg = "orange", text = str(RandomLst[i]), font = 'Times 30', command=lambda a=i: Process(a))
+    button[i].place(x = 10 + (130 * i)%780, y=10 + 120 * (i // 6), width=100, height=100)
+    Buttons.append(button[i])
 
-        b5=Button(root,
-                     bg = '#f0f0f0', font = 'Arial 18',
-                     fg = '#000000', text = "", command = self.GButton_5_command)
-        b5.place(x=330,y=10,width=60,height=60)
-
-
-        b6=Button(root,
-                     bg = '#f0f0f0', font = 'Arial 18',
-                     fg = '#000000', text = '', command = self.GButton_6_command)
-        b6.place(x=410,y=10,width=60,height=60)
-        self.b1 = b1
-        self.b2 = b2
-        self.b3 = b3
-        self.b4 = b4
-        self.b5 = b5
-        self.b6 = b6
-
-
-
-
-    def GButton_1_command(self):
-        self.b1['text'] = '1'
-        self.l.append(self.b1)
-        if len(self.l) == 2:
-            self.perevirka()
-        print('command')
-
-    def GButton_2_command(self):
-        self.b2['text'] = '1'
-        self.l.append(self.b2)
-        if len(self.l) == 2:
-            self.perevirka()
-        print('command')
-
-    def GButton_3_command(self):
-        self.b3['text'] = '2'
-        self.l.append(self.b3)
-        if len(self.l) == 2:
-            self.perevirka()
-        print('command')
-
-    def GButton_4_command(self):
-        self.b4['text'] = '2'
-        self.l.append(self.b4)
-        if len(self.l) == 2:
-            self.perevirka()
-        print('command')
-
-    def GButton_5_command(self):
-        self.b5['text'] = '3'
-        self.l.append(self.b5)
-        if len(self.l) == 2:
-            self.perevirka()
-        print('command')
-
-    def GButton_6_command(self):
-        self.b6['text'] = '3'
-        self.l.append(self.b6)
-        if len(self.l) == 2:
-            self.perevirka()
-        print('command')
-
-
-    def perevirka(self):
-        if self.l[0]['text'] == self.l[1]['text'] and self.l[0] != self.l[1]:
-            self.l[0].destroy()
-            self.l[1].destroy()
-        else:
-            self.l[0]['text'] = ''
-            self.l[1]['text'] = ''
-        self.l.clear()
-if __name__ == "__main__":
-    root = Tk()
-    app = App(root)
-    root.mainloop()
+root.mainloop()
