@@ -4,6 +4,7 @@ RandomLst = list(range(1, 19)) + list(range(1, 19))
 random.shuffle(RandomLst)
 root = Tk()
 root.geometry('800x750')
+# root.resizable(False, False)
 frame = Frame(root, bg = "gray")
 frame.place(relwidth=1, relheight=1)
 Znak = PhotoImage(file = "ZnakPyt.png")
@@ -13,32 +14,27 @@ ImmagineList = []
 def Process(a):
     global ImmagineList
     if len(ImmagineList)<2:
-        Buttons[a].configure(image='')
+        Buttons[a].configure(image='', state = 'disabled')
     ImmagineList.append(Buttons[a])
     if len(ImmagineList) == 2:
         def f1():
             if ImmagineList[0]["text"] == ImmagineList[1]["text"]:
                 ImmagineList[0]['state'] = 'disabled'
                 ImmagineList[1]['state'] = 'disabled'
+                ImmagineList[0]['bg'] = 'orange'
+                ImmagineList[1]['bg'] = 'orange'
             else:
-                ImmagineList[0].configure(image=Znak)
-                ImmagineList[1].configure(image=Znak)
+                ImmagineList[0].configure(image=Znak, state='normal')
+                ImmagineList[1].configure(image=Znak, state='normal')
 
             ImmagineList.clear()
         root.after(1000,f1)
 
 
-# label = {}
-# Labels = []
-# for j in range(36):
-#     label[str(j)] = Label(frame,bg="purple", text=str(j%18), font=40, name=str(j), width=9, height=4)
-#     label[str(j)].place(x = 10 + (130 * j)%780, y=10 + 120 * (j // 6))
-#     Labels.append(label[str(j)])
-
 button = {}
 Buttons = []
 for i in range(36):
-    button[i] = Button(frame, image = Znak, bg = "orange", text = str(RandomLst[i]), font = 'Times 30', command=lambda a=i: Process(a))
+    button[i] = Button(frame, image = Znak, bg = "lightblue", text = str(RandomLst[i]), font = 'Times 30', command=lambda a=i: Process(a))
     button[i].place(x = 10 + (130 * i)%780, y=10 + 120 * (i // 6), width=100, height=100)
     Buttons.append(button[i])
 
